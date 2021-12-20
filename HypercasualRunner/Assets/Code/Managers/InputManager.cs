@@ -3,50 +3,112 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
 
+[DefaultExecutionOrder(-1)]
 public class InputManager : PersistentSingleton<InputManager>
 {
-    //[SerializeField] private PlayerController player;
+    private Touch touch;
 
-    private RaycastHit2D hit;
+    Ray ray;
+    RaycastHit hit;
 
-    public Vector3 touchPos;
-    private Vector2 startPos = Vector2.zero;
+    [Tooltip("Touch values for X and Y")]
+    public float horizontalTouchPos;
+    public float verticalTouchPos;
+
+    //actual values unclamped
+    public Vector3 currentPos;
+
+    private Vector3 firstTouchPosition;
+    public Vector3 lastTouchPosition;
+
+    private float dragDistance; // minimum distance for a swipe
+
+    private float previousXTouchPosition = 0f;
+    private float previousYTouchPosition = 0f;
 
     public float width;
     public float height;
 
+
     public void Awake()
     {
-        //player = GameObject.FindObjectOfType<PlayerController>();
-
         width = (float)Screen.width / 2.0f;
         height = (float)Screen.height / 2.0f;
+
+        dragDistance = height * 15 / 100;
+
     }
 
     void Update()
     {
-        TouchCheck(); 
+        TouchCheck();
     }
 
     private void TouchCheck()
     {
         for (int i = 0; i < Input.touchCount; i++)
         {
-            Touch touch = Input.GetTouch(i);
+            touch = Input.GetTouch(i);
 
-            if (Input.GetTouch(i).phase == TouchPhase.Began)
+            if (Input.touchCount > 0)
             {
-                startPos = touch.position;
+                if (touch.phase == TouchPhase.Began)
+                {
+                    firstTouchPosition = touch.position;
+                    lastTouchPosition = touch.position;
+                }
+                else if (Input.GetTouch(i).phase == TouchPhase.Moved)
+                {
+                    lastTouchPosition = touch.position;
+
+                    //Debug.Log(lastTouchPosition);
+
+                    //currentPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -10));
+
+                    //horizontalTouchPos = Mathf.Clamp(currentPos.x, -2.5f, 2.5f);
+                    //verticalTouchPos = Mathf.Clamp(currentPos.y, 3f, 5.5f);
+                    //Debug.Log($"Y Touch Position :{verticalTouchPos}");
+                }
+                else if(touch.phase == TouchPhase.Ended)
+                {
+                    lastTouchPosition = touch.position;
+
+                    if (Mathf.Abs(lastTouchPosition.x - firstTouchPosition.x) > dragDistance || Mathf.Abs(lastTouchPosition.y - firstTouchPosition.y) > dragDistance)
+                    {
+                        if (Mathf.Abs(lastTouchPosition.x - firstTouchPosition.x) > Mathf.Abs(lastTouchPosition.y - firstTouchPosition.y))
+                        {
+                            if (lastTouchPosition.x > firstTouchPosition.x)
+                            {
+                                //right swipe
+                                Debug.Log("swiping right");
+                            }
+                            else
+                            {
+                                //Left swipe
+                                Debug.Log("swiping left");
+                            }
+                        }
+                        else
+                        {
+                            if (lastTouchPosition.y > firstTouchPosition.y)
+                            {
+                                //up swipe
+                                Debug.Log("swiping up");
+                            }
+                            else
+                            {
+                                //down swipe
+                                Debug.Log("swiping down");
+                            }
+                        }
+                    }
+
+                }
             }
-            else if (Input.GetTouch(i).phase == TouchPhase.Moved)
-            {
-                touchPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -10f));
-                Debug.Log($"TouchPos :{touchPos}");
-            }
-            else
-            {
-                startPos = Vector2.zero;
-            }
+
+
+
         }
     }
+  
 }

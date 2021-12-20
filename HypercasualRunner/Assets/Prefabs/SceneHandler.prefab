@@ -43,13 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949abdeff2042b5418a43bbd495a716a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  persistentScene: {fileID: 102900000, guid: b078b566c4ed8f84da3176a54e1ee87a, type: 3}
+  persistentScene: Managers
   scenes:
-  - {fileID: 102900000, guid: 841bfbbd0156ae4499b5fe6ea00bc5c2, type: 3}
-  - {fileID: 102900000, guid: 186a765e355a3c34bbae64787c93a054, type: 3}
-  - {fileID: 102900000, guid: 54c4b4e01dc1e5646a13db92cea6229a, type: 3}
-  - {fileID: 102900000, guid: 41a59a86af76e3e46a269f172237f2e6, type: 3}
-  - {fileID: 102900000, guid: e69511c70c7c4da459a970de67a4eb06, type: 3}
-  - {fileID: 102900000, guid: 70c1bab57991f02409eb5c6af464faed, type: 3}
-  - {fileID: 102900000, guid: e91522e89d0a17f499152c7ecff74271, type: 3}
-  - {fileID: 102900000, guid: 16da6238c5b2fe74da6ff4d12be8244e, type: 3}
+  - Menu
+  - Level01
+  - Level02
+  - Level03
+  - Level04
+  - Level05
+  - Win
+  - Lose
