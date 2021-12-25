@@ -6,6 +6,7 @@ using UnityEngine.Android;
 [DefaultExecutionOrder(-1)]
 public class InputManager : PersistentSingleton<InputManager>
 {
+    [SerializeField] private GameManager gm; // game manager
     private Touch touch;
 
     Ray ray;
@@ -28,15 +29,18 @@ public class InputManager : PersistentSingleton<InputManager>
 
     public float width;
     public float height;
+    [SerializeField] private float inputTimer = 1;
 
+    public bool firstTouch;
 
     public void Awake()
     {
+        gm = FindObjectOfType<GameManager>();
+
         width = (float)Screen.width / 2.0f;
         height = (float)Screen.height / 2.0f;
 
         dragDistance = height * 15 / 100;
-
     }
 
     void Update()
@@ -46,6 +50,12 @@ public class InputManager : PersistentSingleton<InputManager>
 
     private void TouchCheck()
     {
+        if (gm.gameStarted)
+        {
+            //Debug.Log("input timer?");
+            inputTimer -= Time.unscaledDeltaTime;
+        }
+
         for (int i = 0; i < Input.touchCount; i++)
         {
             touch = Input.GetTouch(i);
@@ -54,24 +64,26 @@ public class InputManager : PersistentSingleton<InputManager>
             {
                 if (touch.phase == TouchPhase.Began)
                 {
+                    //touch.position = currentPos;
                     firstTouchPosition = touch.position;
                     lastTouchPosition = touch.position;
+
+                    if (firstTouch == false && gm.gameStarted)
+                    {
+                        firstTouch = true;
+                        gm.PauseGame(false);
+                    }
                 }
                 else if (Input.GetTouch(i).phase == TouchPhase.Moved)
                 {
                     lastTouchPosition = touch.position;
 
                     //Debug.Log(lastTouchPosition);
-
-                    //currentPos = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, -10));
-
-                    //horizontalTouchPos = Mathf.Clamp(currentPos.x, -2.5f, 2.5f);
-                    //verticalTouchPos = Mathf.Clamp(currentPos.y, 3f, 5.5f);
-                    //Debug.Log($"Y Touch Position :{verticalTouchPos}");
                 }
-                else if(touch.phase == TouchPhase.Ended)
+                else if (touch.phase == TouchPhase.Ended)
                 {
                     lastTouchPosition = touch.position;
+                    currentPos = lastTouchPosition;
 
                     if (Mathf.Abs(lastTouchPosition.x - firstTouchPosition.x) > dragDistance || Mathf.Abs(lastTouchPosition.y - firstTouchPosition.y) > dragDistance)
                     {
@@ -80,12 +92,12 @@ public class InputManager : PersistentSingleton<InputManager>
                             if (lastTouchPosition.x > firstTouchPosition.x)
                             {
                                 //right swipe
-                                Debug.Log("swiping right");
+                                // Debug.Log("swiping right");
                             }
                             else
                             {
                                 //Left swipe
-                                Debug.Log("swiping left");
+                                // Debug.Log("swiping left");
                             }
                         }
                         else
@@ -93,22 +105,19 @@ public class InputManager : PersistentSingleton<InputManager>
                             if (lastTouchPosition.y > firstTouchPosition.y)
                             {
                                 //up swipe
-                                Debug.Log("swiping up");
+                                // Debug.Log("swiping up");
                             }
                             else
                             {
                                 //down swipe
-                                Debug.Log("swiping down");
+                                // Debug.Log("swiping down");
                             }
                         }
                     }
 
                 }
             }
-
-
-
         }
     }
-  
+
 }

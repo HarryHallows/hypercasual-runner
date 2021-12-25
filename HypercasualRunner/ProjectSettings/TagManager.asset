@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Fuel
+  - FinishLine
+  - DeadBox
+  - X1Podium
+  - X2Podium
+  - X3Podium
+  - X4Podium
+  - X5Podium
+  - HUD
   layers:
   - Default
   - TransparentFX

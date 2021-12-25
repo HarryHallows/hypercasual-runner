@@ -3,41 +3,11 @@
     "m_SelectedPackage": {
         "deviceId": "496be6a4",
         "name": "com.DefaultCompany.HypercasualRunner",
-        "processId": 9620,
+        "processId": 15133,
         "exited": false
     },
-    "m_SelectedPriority": 0,
+    "m_SelectedPriority": 1,
     "m_KnownPackagesForSerialization": [
-        {
-            "deviceId": "496be6a4",
-            "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9609,
-            "exited": true
-        },
-        {
-            "deviceId": "496be6a4",
-            "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9610,
-            "exited": true
-        },
-        {
-            "deviceId": "496be6a4",
-            "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9612,
-            "exited": true
-        },
-        {
-            "deviceId": "496be6a4",
-            "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9619,
-            "exited": true
-        },
-        {
-            "deviceId": "496be6a4",
-            "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9613,
-            "exited": true
-        },
         {
             "deviceId": "496be6a4",
             "name": "net.oneplus.launcher",
@@ -47,13 +17,73 @@
         {
             "deviceId": "496be6a4",
             "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9616,
+            "processId": 28133,
+            "exited": true
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 28129,
+            "exited": true
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 7584,
+            "exited": true
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 7587,
+            "exited": true
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 28131,
+            "exited": true
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 7583,
             "exited": false
         },
         {
             "deviceId": "496be6a4",
             "name": "com.DefaultCompany.HypercasualRunner",
-            "processId": 9620,
+            "processId": 28132,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 7585,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 7586,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 9469,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 9468,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 15133,
             "exited": false
         }
     ],
@@ -65,7 +95,7 @@
             },
             {
                 "m_Name": "No Filter",
-                "m_Selected": true
+                "m_Selected": false
             },
             {
                 "m_Name": "",
@@ -81,7 +111,7 @@
             },
             {
                 "m_Name": "Unity",
-                "m_Selected": false
+                "m_Selected": true
             },
             {
                 "m_Name": "CRASH",
