@@ -2,6 +2,7 @@
   "dependencies": {
     "com.unity.2d.pixel-perfect": "4.0.1",
     "com.unity.2d.sprite": "1.0.0",
+    "com.unity.cinemachine": "2.6.11",
     "com.unity.collab-proxy": "1.15.4",
     "com.unity.device-simulator": "3.0.3-preview",
     "com.unity.formats.fbx": "4.1.2",
@@ -10,6 +11,8 @@
     "com.unity.ide.vscode": "1.2.4",
     "com.unity.mobile.android-logcat": "1.2.3",
     "com.unity.mobile.notifications": "1.4.2",
+    "com.unity.probuilder": "4.5.2",
+    "com.unity.render-pipelines.universal": "10.6.0",
     "com.unity.test-framework": "1.1.29",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.4.8",
