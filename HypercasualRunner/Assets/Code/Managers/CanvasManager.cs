@@ -10,7 +10,12 @@ public class CanvasManager : MonoBehaviour
     private SceneHandler sceneHandler;
 
     private InputManager input;
-    [SerializeField] private GameObject instructionImage;
+    [SerializeField] public GameObject instructionImage;
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] public GameObject endLevelScreen;
+    [SerializeField] private GameObject pauseButton;
+
+    public GameObject scoreParent;
 
     //[SerializeField] private Animator transitionAnim;
     [SerializeField] private Image transitionScreen;
@@ -26,6 +31,19 @@ public class CanvasManager : MonoBehaviour
         sceneHandler = FindObjectOfType<SceneHandler>();
     }
 
+    private void Start()
+    {
+        if (scoreParent != null)
+        {
+            scoreParent.SetActive(false);
+        }
+
+        if (instructionImage != null)
+        {
+            instructionImage.SetActive(true);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -35,9 +53,9 @@ public class CanvasManager : MonoBehaviour
     private void SceneCheck()
     {
         //Get current scene
-        Debug.Log("get current scene from game manager");
+        //Debug.Log("get current scene from game manager");
         gm.CurrentScene();
-
+        
         if (gm.gameStarted == false && gm.scene != "Menu" && instructionImage != null)
         {
             //Debug.Log(input.firstTouch + " first touch?");
@@ -63,36 +81,74 @@ public class CanvasManager : MonoBehaviour
 
     public int ScoreCheck(float _score)
     {
-        int _finalScore = (int)_score;
+        int _levelScore = (int)_score;
 
-        scoreText.text = _finalScore.ToString("F0");
-        return _finalScore = score;
+        scoreText.text = _levelScore.ToString("F0");
+
+        gm.finalScore = _levelScore;
+        return _levelScore = score;
     }
 
     #region ButtonFunctions 
-    public void LoseScene()
-    {
-        StartCoroutine(SceneTransition(SceneLoad.LOADLOSE));
-    }
-
     public void MenuScene()
     {
-        StartCoroutine(SceneTransition(SceneLoad.LOADMENU));
+        gm.LoadMenu();
+
+        if (pauseScreen != null)
+        {
+            pauseScreen.SetActive(false);
+            pauseButton.SetActive(true);
+            instructionImage.SetActive(true);
+        }
+
+        if (endLevelScreen != null)
+        {
+            pauseButton.SetActive(true);
+            instructionImage.SetActive(true);
+            score = 0;
+            scoreParent.SetActive(false);
+            endLevelScreen.SetActive(false);
+        }
     }
 
     public void PlayGame()
     {
-        //StartCoroutine(SceneTransition(SceneLoad.LOADNEXT));
         sceneHandler.NextScene();
+
+        if (endLevelScreen != null)
+        {
+            endLevelScreen.SetActive(false);
+        }
+    }
+
+    public void ReplayLevel()
+    {
+        sceneHandler.PlayAgain();
+        return;
+    }
+
+    public void PauseButton()
+    {
+        pauseButton.SetActive(false);
+        pauseScreen.SetActive(true);
+        gm.PauseGame(true);
+    }
+
+    public void ResumeButton()
+    {
+        pauseButton.SetActive(true);
+        pauseScreen.SetActive(false);
+        gm.PauseGame(false);
     }
 
     public void QuitGame()
     {
-        //StartCoroutine(SceneTransition(SceneLoad.LOADNEXT));
         gm.OnApplicationQuit();
     }
     #endregion
 
+    #region Legacy Code NOTE: Not enough time to complete
+    /*
     private IEnumerator SceneTransition(SceneLoad _sceneChoice)
     {
         float _transition = transitionScreen.GetComponent<CanvasGroup>().alpha;
@@ -100,9 +156,9 @@ public class CanvasManager : MonoBehaviour
 
         yield return new WaitUntil(() => _transition >= 1);
 
-        gm.ChooseSceneToLoad(_sceneChoice);
+        //gm.ChooseSceneToLoad(_sceneChoice);
         _transition -= Time.unscaledTime;
     }
-
-   
+    */
+    #endregion
 }

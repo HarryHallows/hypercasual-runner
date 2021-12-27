@@ -834,7 +834,7 @@ Transform:
   - {fileID: 7090355464674406078}
   - {fileID: 8437028133381524251}
   m_Father: {fileID: 5452295521704569822}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &2238052298540693403
 Animator:
@@ -1184,7 +1184,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 52.34
+      scalar: 3.24
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1670,7 +1670,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 1
+    size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
@@ -6111,7 +6111,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 52.34
+      scalar: 3.24
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -6597,7 +6597,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 1
+    size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
@@ -11645,36 +11645,6 @@ Transform:
   m_Father: {fileID: 2405225347852223119}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8893876657520642997
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2130865481869678170}
-  m_Layer: 0
-  m_Name: CameraTarget
-  m_TagString: Untagged
-  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2130865481869678170
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8893876657520642997}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.46, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5452295521704569822}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9075078959509641677
 GameObject:
   m_ObjectHideFlags: 0
@@ -11686,8 +11656,8 @@ GameObject:
   - component: {fileID: 5452295521704569822}
   - component: {fileID: 6099329498533686809}
   - component: {fileID: 3033334697471913196}
-  - component: {fileID: 2147714315179010106}
   - component: {fileID: 7557886081874791754}
+  - component: {fileID: 2147714315179010106}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -11703,10 +11673,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9075078959509641677}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.95, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2130865481869678170}
   - {fileID: 7747011789978311032}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -11725,25 +11694,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 0}
   gm: {fileID: 0}
-  cm: {fileID: 0}
+  cm: {fileID: 4922350678256847629, guid: 5bb82c4a7ed24fd438e2c477b3c46133, type: 3}
   jetpack: {fileID: 5157032299504648025}
   rb: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 2238052298540693403}
   jetfuel:
   - {fileID: 5775040704397447387}
   - {fileID: 4977963704796652078}
   podiums: []
+  groundedCollider: {fileID: 3033334697471913196}
+  flyingCollider: {fileID: 7557886081874791754}
+  colliding: 0
+  detectionSize: {x: 0.82, y: 1.69, z: 0.55}
+  detectionPosition: {x: 0, y: 0, z: 0}
+  objectLayers:
+    serializedVersion: 2
+    m_Bits: 128
   fuel: 0
   moveSpeed: 3
+  startMoveSpeed: 0
   rotationSmoothingSpeed: 0.01
   virtualCam: {fileID: 0}
   grounded: 1
+  obstacleCollision: 0
   flying: 0
-  groundedCollider: {fileID: 3033334697471913196}
-  flyingCollider: {fileID: 7557886081874791754}
   groundedOffset: -0.1
   groundedRadius: 0.55
-  GroundLayers:
+  bodyPosition: {x: 0, y: 1, z: 0}
+  groundLayers:
     serializedVersion: 2
     m_Bits: 64
 --- !u!136 &3033334697471913196
@@ -11760,22 +11738,6 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
---- !u!54 &2147714315179010106
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9075078959509641677}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 80
-  m_CollisionDetection: 3
 --- !u!136 &7557886081874791754
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -11790,3 +11752,19 @@ CapsuleCollider:
   m_Height: 1.75
   m_Direction: 2
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!54 &2147714315179010106
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9075078959509641677}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 64
+  m_CollisionDetection: 0

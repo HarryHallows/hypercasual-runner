@@ -3,15 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum SceneLoad
-{
-    LOADLOSE, LOADWIN, LOADMENU, LOADNEXT, LOADQUIT
-}
-
 public class GameManager : MonoBehaviour
 {
-    public SceneLoad sceneLoader;
-
+    [SerializeField] public CanvasManager cm; //Canvas manager
     [SerializeField] public SceneHandler sceneHandler;
     [SerializeField] public InputManager input;
 
@@ -22,12 +16,14 @@ public class GameManager : MonoBehaviour
 
     private GameObject hud;
 
+    public int finalScore;
+
     private void Awake()
     {
         sceneHandler = FindObjectOfType<SceneHandler>();
         input = InputManager.Instance;
 
-        CurrentScene();
+        //CurrentScene();
 
         sceneHandler.enabled = true;
     }
@@ -47,6 +43,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if (cm == null)
+            {
+                cm = FindObjectOfType<CanvasManager>();
+            }
+
             if (hud != null)
             {
                 hud.SetActive(true);
@@ -68,7 +69,8 @@ public class GameManager : MonoBehaviour
 
     public void CurrentScene()
     {
-        scene = SceneManager.GetActiveScene().name;
+        sceneHandler.ActiveScene();
+        scene = sceneHandler.sceneName;
         //Debug.Log(scene);
     }
 
@@ -78,6 +80,8 @@ public class GameManager : MonoBehaviour
         CurrentScene();
         SceneManager.UnloadSceneAsync(scene);
         SceneManager.LoadSceneAsync("Lose", LoadSceneMode.Additive);
+        return;
+        //sceneHandler.ActiveScene();
     }
 
     public void LoadNextLevel()
@@ -87,39 +91,17 @@ public class GameManager : MonoBehaviour
         return;
     }
 
-    //TODO:: REPLACE THIS WITH WORKING FUNCTION BUGGY
-    public void ChooseSceneToLoad(SceneLoad _sceneChoice)
-    {
-        switch (sceneLoader)
-        {
-            case SceneLoad.LOADLOSE:
-                LoseGame();
-                break;
-
-            case SceneLoad.LOADWIN:
-                WinGame();
-                break;
-                
-            case SceneLoad.LOADMENU:
-                LoadMenu();
-                break;
-            
-            case SceneLoad.LOADNEXT:
-                Debug.Log("Loading next scene?");
-                LoadNextLevel();
-                break;
-
-            case SceneLoad.LOADQUIT:
-                OnApplicationQuit();
-                break;
-        }
-    }
-
     public void LoadMenu()
     {
         CurrentScene();
         SceneManager.UnloadSceneAsync(scene);
         SceneManager.LoadSceneAsync("Menu", LoadSceneMode.Additive);
+    }
+
+    public int CurrentLevel()
+    {
+        CurrentScene _currentScene = FindObjectOfType<CurrentScene>();
+        return sceneHandler.previousLevel = _currentScene.previousLevel;
     }
 
     public bool PauseGame(bool _paused)
@@ -128,11 +110,18 @@ public class GameManager : MonoBehaviour
 
         if (_paused)
         {
+            input.firstTouch = false;
             gameStarted = true;
+
+            if (cm != null)
+            {
+                cm.instructionImage.SetActive(false);
+            }
             Time.timeScale = 0;
         }
         else
         {
+            cm.instructionImage.SetActive(false);
             Time.timeScale = 1;
             gameStarted = false;
         }
