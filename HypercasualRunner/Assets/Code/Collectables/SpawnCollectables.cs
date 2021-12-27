@@ -39,9 +39,6 @@ public class SpawnCollectables : MonoBehaviour
 
             _sceneHandler.ActiveScene();
 
-            //Scene _spawnScene = SceneManager.GetSceneByBuildIndex(_sceneHandler.c);
-            //SceneManager.SetActiveScene(_spawnScene);
-
             for (int i = 0; i < amountToSpawn; i++)
             {
                 Spawn();

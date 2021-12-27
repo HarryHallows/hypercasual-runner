@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,11 +9,13 @@ public class SceneHandler : MonoBehaviour
     [SerializeField] private string persistentScene; //Manager Scene 
     [SerializeField] public string[] scenes; //Dynamic Scenes e.g. menus/levels 
 
-    [SerializeField] private string sceneName;
+    [SerializeField] public string sceneName;
 
-    [SerializeField] private Scene activeScene;
+    private Scene scene;
+    private Scene activeScene;
 
     public int currentScene;
+    public int previousLevel;
 
     [SerializeField] private GameManager gm; //Game Manager
 
@@ -30,11 +34,6 @@ public class SceneHandler : MonoBehaviour
         #endregion
 
         currentScene = 0;
-    }
-
-    private void Start()
-    {
-        ActiveScene();
     }
 
     [ContextMenu("NextScene")]
@@ -82,11 +81,10 @@ public class SceneHandler : MonoBehaviour
 
         currentScene = FindObjectOfType<CurrentScene>().currentScene;
 
-        SceneManager.UnloadSceneAsync(activeScene);
+        UnloadCurrentScene();
         SceneManager.LoadSceneAsync(scenes[currentScene + 1], LoadSceneMode.Additive);
 
-        gm = FindObjectOfType<GameManager>();
-        gm.PauseGame(true);
+        ManagerPause();
 
         Debug.Log("Get scene name" + activeScene.name);
         return;
@@ -95,12 +93,39 @@ public class SceneHandler : MonoBehaviour
 
     public void ActiveScene()
     {
-        Scene scene = SceneManager.GetSceneAt(+3);
+        scene = SceneManager.GetSceneAt(3);
         sceneName = scene.name;
-        Debug.Log("Get scene name " + scene.name);
-        SceneManager.SetActiveScene(scene);
-        activeScene = SceneManager.GetActiveScene();
-        Debug.Log("Get active scene name " + activeScene.name);
+        SetActiveScene();
+    }
+
+    private void SetActiveScene()
+    {
+        if (scene.isLoaded)
+        {
+            SceneManager.SetActiveScene(scene);
+            activeScene = SceneManager.GetActiveScene();
+        }
+        return;
+    }
+
+    private void UnloadCurrentScene()
+    {
+        SceneManager.UnloadSceneAsync(activeScene);
+    }
+
+    public void ReturnMenu()
+    {
+        ActiveScene();
+        UnloadCurrentScene();
+        SceneManager.LoadSceneAsync("Menu", LoadSceneMode.Additive);
+    }
+
+    public void PlayAgain()
+    {
+        ActiveScene();
+        UnloadCurrentScene();
+        ManagerPause();
+        SceneManager.LoadSceneAsync(scenes[previousLevel], LoadSceneMode.Additive);
     }
 
     [ContextMenu("PreviousScene")]
@@ -108,13 +133,18 @@ public class SceneHandler : MonoBehaviour
     {
         currentScene = FindObjectOfType<CurrentScene>().currentScene;
 
-        SceneManager.UnloadSceneAsync(activeScene);
+        UnloadCurrentScene();
         SceneManager.LoadSceneAsync(scenes[currentScene - 1], LoadSceneMode.Additive);
 
-        gm = FindObjectOfType<GameManager>();
-        gm.PauseGame(true);
+        ManagerPause();
 
         Debug.Log("Get scene name" + activeScene.name);
         return;
+    }
+
+    private void ManagerPause()
+    {
+        gm = FindObjectOfType<GameManager>();
+        gm.PauseGame(true);
     }
 }

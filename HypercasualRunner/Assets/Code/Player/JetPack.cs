@@ -28,5 +28,6 @@ public class JetPack : MonoBehaviour
     public void Scale(float _fuel)
     {
         //increase scale == to amount of fuel if < fuelcapacity
+        transform.localScale = new Vector3(_fuel / 2, _fuel / 2, _fuel / 2);
     }
 }

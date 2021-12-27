@@ -772,7 +772,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 509300927}
         m_TargetAssemblyTypeName: CanvasManager, Assembly-CSharp
-        m_MethodName: PlayGame
+        m_MethodName: ReplayLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

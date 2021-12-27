@@ -33,6 +33,8 @@ public class InputManager : PersistentSingleton<InputManager>
 
     public bool firstTouch;
 
+    public bool touchFinished;
+
     public void Awake()
     {
         gm = FindObjectOfType<GameManager>();
@@ -68,6 +70,8 @@ public class InputManager : PersistentSingleton<InputManager>
                     firstTouchPosition = touch.position;
                     lastTouchPosition = touch.position;
 
+                    touchFinished = false;
+
                     if (firstTouch == false && gm.gameStarted)
                     {
                         firstTouch = true;
@@ -84,6 +88,8 @@ public class InputManager : PersistentSingleton<InputManager>
                 {
                     lastTouchPosition = touch.position;
                     currentPos = lastTouchPosition;
+
+                    touchFinished = true;
 
                     if (Mathf.Abs(lastTouchPosition.x - firstTouchPosition.x) > dragDistance || Mathf.Abs(lastTouchPosition.y - firstTouchPosition.y) > dragDistance)
                     {
