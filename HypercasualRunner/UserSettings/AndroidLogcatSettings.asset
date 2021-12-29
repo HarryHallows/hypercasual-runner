@@ -3,7 +3,7 @@
     "m_SelectedPackage": {
         "deviceId": "496be6a4",
         "name": "com.DefaultCompany.HypercasualRunner",
-        "processId": 22058,
+        "processId": 25954,
         "exited": false
     },
     "m_SelectedPriority": 1,
@@ -144,6 +144,12 @@
             "deviceId": "496be6a4",
             "name": "com.DefaultCompany.HypercasualRunner",
             "processId": 22058,
+            "exited": false
+        },
+        {
+            "deviceId": "496be6a4",
+            "name": "com.DefaultCompany.HypercasualRunner",
+            "processId": 25954,
             "exited": false
         }
     ],
